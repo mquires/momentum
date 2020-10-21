@@ -5,19 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/styles/style.css">
+    <link rel="stylesheet" href="assets/styles/owfont-regular.css">
     <title>Momentum</title>
 </head>
 
 <body>
+    <section class="weather">
+        <i class="weather__icon owf"></i>
+        <div class="weather__temperature"></div>
+        <div class="weather__description"></div>
+        <div class="weather__select-city" contenteditable="true"></div>
+    </section>
 
     <h1 class="time"></h1>
-    <p class="day-times">
-        <span>Good Morning, </span>
+    <h2 class="day"></h2>
+    <p class="wish">
+        <span class="day-times">Good Morning, </span>
         <span class="name" contenteditable="true">Evgeniy</span>
     </p>
 
-    <p>What's your main focus today?</p>
-    <p class="focus" contenteditable="true">Make this app</p>
+    <p class="focus">What's your main focus for today?</p>
+    <p class="focus__task" contenteditable="true">Make this app</p>
+    <figure class="quote">
+        <blockquote class="blockquote"></blockquote>
+        <figcaption class="figcaption"></figcaption>
+    </figure>
+    <div class="quote__container">
+        <div class="result"></div>
+        <button></button>
+    </div>
 
     <script src="./script.js"></script>
 
