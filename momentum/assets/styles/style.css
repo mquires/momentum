@@ -12,15 +12,34 @@
 body {
     font-family: "SF-Medium";
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     font-size: 2.5rem;
     color: #eee;
 }
 
-.weather {}
+.wrapper {
+    max-width: 128rem;
+    padding: 3rem;
+    margin: auto;
+    align-items: center;
+}
+
+.weather {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.8rem;
+    transition: 1s ease-in-out;
+}
+
+.weather__select-city {
+    outline: none;
+    cursor: pointer;
+}
+
+.time__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .time {
     font-family: 'SF-Bold';
@@ -44,7 +63,7 @@ body {
 
 .quote {
     margin-top: 5rem;
-    max-width: 50rem;
+    max-width: 70rem;
 }
 
 .quote__container {

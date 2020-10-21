@@ -6,10 +6,12 @@ const focusTask = document.querySelector('.focus__task');
 const blockquote = document.querySelector('blockquote');
 const figcaption = document.querySelector('figcaption');
 const button = document.querySelector('button');
+const weatherInfo = document.querySelector('.weather__info');
 const weatherIcon = document.querySelector('.weather__icon');
 const weatherTemperature = document.querySelector('.weather__temperature');
 const weatherDescription = document.querySelector('.weather__description');
 const selectCity = document.querySelector('.weather__select-city');
+const loader = `<div class="loader"></div>`;
 
 const images = {
     morning: [
@@ -63,13 +65,13 @@ const changeDayTimes = () => {
     const date = new Date();
     const hours = date.getHours();
 
-    if (hours >= 6 && hours <= 12) {
+    if (hours >= 6 && hours < 12) {
         dayTimes.innerText = 'Good Morning, ';
-    } else if (hours >= 12 && hours <= 18) {
+    } else if (hours >= 12 && hours < 18) {
         dayTimes.innerText = 'Good Afternoon, ';
-    } else if (hours >= 18 && hours <= 0) {
+    } else if (hours >= 18 && hours < 24) {
         dayTimes.innerText = 'Good Evening, ';
-    } else if (hours >= 0 && hours <= 6) {
+    } else if (hours >= 0 && hours < 6) {
         dayTimes.innerText = 'Good Night, ';
     }
 };
@@ -116,7 +118,6 @@ const getFocus = () => {
 };
 
 async function getQuote() {
-    let loader = `<div class="loader"></div>`;
     let buttonInnerElement = `<div class="quote__button"></div>`;
     button.innerHTML = loader;
     await fetch('https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en')
@@ -129,19 +130,34 @@ async function getQuote() {
 };
 
 async function getWeather() {
-    await fetch('https://api.openweathermap.org/data/2.5/weather?q=Минск&lang=en&appid=350626f97bfd83f95eee81ddd708faa6&units=imperial')
-        .then(res => res.json())
-        .then(body => {
-            weatherIcon.classList.add(`owf-${body.weather[0].id}`)
-            weatherDescription.textContent = body.weather[0].description;
-            weatherTemperature.textContent = body.main.temp
+    document.querySelector('.result').innerHTML = loader;
+    let cityName = (!selectCity.textContent) ? localStorage.getItem('city') : selectCity.textContent;
+    await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&lang=en&appid=350626f97bfd83f95eee81ddd708faa6&units=imperial`)
+        .then(res => {
+            if (!res.ok) {
+                weatherInfo.textContent = 'Something went wrong!';
+                weatherIcon.classList = '';
+                weatherDescription.textContent = '';
+                weatherTemperature.textContent = '';
+                document.querySelector('.result').innerHTML = '';
+            } else {
+                weatherInfo.textContent = '';
+            }
+            return res.json()
         })
-
+        .then(body => {
+            weatherIcon.className = 'weather__icon owf';
+            weatherIcon.classList.add(`owf-${body.weather[0].id}`);
+            weatherDescription.textContent = body.weather[0].description;
+            weatherTemperature.textContent = `${body.main.temp}°F`;
+            document.querySelector('.result').innerHTML = '';
+        })
 }
 
 const setCity = (e) => {
     if (e.type = 'keypress') {
         if (e.keyCode === 13) {
+            getWeather();
             localStorage.setItem('city', e.target.textContent);
             e.target.blur();
         }
@@ -153,8 +169,10 @@ const setCity = (e) => {
 const getCity = () => {
     if (localStorage.getItem('city') === null) {
         selectCity.textContent = '[Write your city]';
+        weatherInfo.textContent = '';
     } else {
         selectCity.textContent = localStorage.getItem('city');
+        getWeather();
     }
 }
 
@@ -172,5 +190,4 @@ changeBackground();
 changeDayTimes();
 getName();
 getFocus();
-getWeather();
 getCity();

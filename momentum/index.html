@@ -10,29 +10,36 @@
 </head>
 
 <body>
-    <section class="weather">
-        <i class="weather__icon owf"></i>
-        <div class="weather__temperature"></div>
-        <div class="weather__description"></div>
-        <div class="weather__select-city" contenteditable="true"></div>
-    </section>
 
-    <h1 class="time"></h1>
-    <h2 class="day"></h2>
-    <p class="wish">
-        <span class="day-times">Good Morning, </span>
-        <span class="name" contenteditable="true">Evgeniy</span>
-    </p>
+    <div class="wrapper">
+        <section class="weather">
+            <div class="weather__info"></div>
+            <div class="result"></div>
+            <i class="weather__icon owf"></i>
+            <div class="weather__temperature"></div>
+            <div class="weather__description"></div>
+            <div class="weather__select-city" contenteditable="true"></div>
+        </section>
 
-    <p class="focus">What's your main focus for today?</p>
-    <p class="focus__task" contenteditable="true">Make this app</p>
-    <figure class="quote">
-        <blockquote class="blockquote"></blockquote>
-        <figcaption class="figcaption"></figcaption>
-    </figure>
-    <div class="quote__container">
-        <div class="result"></div>
-        <button></button>
+        <section class="time__container">
+            <h1 class="time"></h1>
+            <h2 class="day"></h2>
+            <p class="wish">
+                <span class="day-times">Good Morning, </span>
+                <span class="name" contenteditable="true">Evgeniy</span>
+            </p>
+
+            <p class="focus">What's your main focus for today?</p>
+            <p class="focus__task" contenteditable="true">Make this app</p>
+            <figure class="quote">
+                <blockquote class="blockquote"></blockquote>
+                <figcaption class="figcaption"></figcaption>
+            </figure>
+            <div class="quote__container">
+                <div class="result"></div>
+                <button></button>
+            </div>
+        </section>
     </div>
 
     <script src="./script.js"></script>
