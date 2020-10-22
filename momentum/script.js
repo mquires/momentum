@@ -15,16 +15,95 @@ const weatherDescription = document.querySelector('.weather__description');
 const weatherAirHumidity = document.querySelector('.weather__air-humidity');
 const weatherWindSpeed = document.querySelector('.weather__wind-speed');
 const selectCity = document.querySelector('.weather__select-city');
+const backgroundButton = document.querySelector('.background-button');
 const loader = `<div class="loader"></div>`;
 
-const images = {
-    morning: [
-        './assets/images/background/morning/1.jpg'
-    ]
-};
+const morning = [
+    './assets/images/background/morning/1.jpg',
+    './assets/images/background/morning/2.jpg',
+    './assets/images/background/morning/3.jpg',
+    './assets/images/background/morning/4.jpg'
+];
+
+const afternoon = [
+    './assets/images/background/afternoon/1.jpg',
+    './assets/images/background/afternoon/2.jpg',
+    './assets/images/background/afternoon/3.jpg',
+    './assets/images/background/afternoon/4.jpg'
+];
+
+const evening = [
+    './assets/images/background/evening/1.jpg',
+    './assets/images/background/evening/2.jpg',
+    './assets/images/background/evening/3.jpg',
+    './assets/images/background/evening/4.jpg'
+];
+
+const night = [
+    './assets/images/background/night/1.jpg',
+    './assets/images/background/night/2.jpg',
+    './assets/images/background/night/3.jpg',
+    './assets/images/background/night/4.jpg'
+];
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+const randomBackground = (array) => {
+    array.sort(() => Math.random() - 0.5);
+};
+
+randomBackground(morning);
+randomBackground(afternoon);
+randomBackground(evening);
+randomBackground(night);
+
+let i = 0;
+const changeBackground = (imageSrc) => {
+    const img = document.createElement('img');
+    img.src = imageSrc;
+    img.onload = () => document.querySelector('body').style.backgroundImage = `url(${imageSrc})`;
+};
+
+const setBackground = () => {
+    const date = new Date();
+    const hours = date.getHours();
+
+    if (hours >= 6 && hours < 12) {
+        document.querySelector('body').style.backgroundImage = `url(${morning[0]})`;
+    } else if (hours >= 12 && hours < 18) {
+        document.querySelector('body').style.backgroundImage = `url(${afternoon[0]})`;
+    } else if (hours >= 18 && hours < 24) {
+        document.querySelector('body').style.backgroundImage = `url(${evening[0]})`;
+    } else if (hours >= 0 && hours < 6) {
+        document.querySelector('body').style.backgroundImage = `url(${night[0]})`;
+    }
+}
+
+const getBackground = () => {
+    const date = new Date();
+    const hours = date.getHours();
+
+    let index;
+    let imageSrc;
+    let imagesArray;
+
+    if (hours >= 6 && hours < 12) {
+        imagesArray = morning.concat(afternoon, evening, night);
+    } else if (hours >= 12 && hours < 18) {
+        imagesArray = afternoon.concat(evening, night, morning);
+    } else if (hours >= 18 && hours < 24) {
+        imagesArray = evening.concat(night, morning, afternoon);
+    } else if (hours >= 0 && hours < 6) {
+        imagesArray = night.concat(morning, afternoon, evening);
+    }
+
+    index = i % imagesArray.length;
+    imageSrc = imagesArray[index];
+
+    changeBackground(imageSrc);
+    i++;
+};
 
 const showDate = () => {
     const date = new Date();
@@ -39,28 +118,6 @@ const showDate = () => {
     day.innerText = `${weekDay}, ${monthDay} ${month}`;
 
     setTimeout(showDate, 1000);
-}
-
-const changeBackground = () => {
-    const date = new Date();
-    const hours = date.getHours();
-
-    switch (true) {
-        case hours >= 6:
-            {
-                return document.body.style.backgroundImage = `url(${images.morning[0]})`;
-            }
-
-        case hours >= 6:
-            {
-                return document.body.style.backgroundImage = `url(${images.morning[0]})`;
-            }
-
-        default:
-            {
-                return document.body.style.backgroundImage = '';
-            }
-    }
 }
 
 const fixSingleValue = (value) => parseInt(value, 10) < 10 ? `0${value}` : `${value}`;
@@ -196,7 +253,7 @@ const getCity = () => {
         selectCity.textContent = localStorage.getItem('city');
         getWeather();
     }
-}
+};
 
 name.addEventListener('keypress', setName);
 name.addEventListener('blur', setName);
@@ -206,10 +263,11 @@ selectCity.addEventListener('keypress', setCity);
 selectCity.addEventListener('blur', setCity);
 document.addEventListener('DOMContentLoaded', getQuote());
 button.addEventListener('click', getQuote);
+backgroundButton.addEventListener('click', getBackground);
 
 showDate();
-changeBackground();
 changeDayTimes();
 getName();
 getFocus();
 getCity();
+setBackground();
