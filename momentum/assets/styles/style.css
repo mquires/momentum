@@ -1,4 +1,13 @@
 @import './fonts.css';
+@keyframes opacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -9,25 +18,39 @@
     font-size: 10px;
 }
 
+@media screen and (max-width: 545px) {
+     :root {
+        font-size: 7px;
+    }
+}
+
 body {
     font-family: "SF-Medium";
     height: 100vh;
     font-size: 2.5rem;
     color: #eee;
+    margin: auto;
+    min-width: 32rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20vh 50vh 30vh;
+    height: 100vh;
 }
 
 .wrapper {
     max-width: 128rem;
     padding: 3rem;
     margin: auto;
-    align-items: center;
 }
 
 .weather {
-    display: flex;
-    flex-direction: column;
     font-size: 1.8rem;
-    transition: 1s ease-in-out;
+}
+
+.weather .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .weather__select-city {
@@ -35,10 +58,12 @@ body {
     cursor: pointer;
 }
 
-.time__container {
+.time__container .wrapper,
+.quote__section .wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
 .time {
@@ -62,13 +87,13 @@ body {
 }
 
 .quote {
-    margin-top: 5rem;
     max-width: 70rem;
+    font-size: 1.9rem;
 }
 
 .quote__container {
-    display: flex;
-    align-items: center;
+    position: fixed;
+    bottom: 5vh;
 }
 
 .blockquote {
@@ -88,7 +113,7 @@ body {
     height: 3rem;
 }
 
-button {
+.button {
     display: flex;
     align-items: center;
     background: #eee;
@@ -103,4 +128,8 @@ button {
     background-size: cover;
     width: 3rem;
     height: 3rem;
+}
+
+.opacity {
+    animation: opacity 0.3s linear forwards;
 }

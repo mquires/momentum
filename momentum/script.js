@@ -3,13 +3,17 @@ const day = document.querySelector('.day');
 const dayTimes = document.querySelector('.day-times');
 const name = document.querySelector('.name');
 const focusTask = document.querySelector('.focus__task');
+const quote = document.querySelector('.quote');
 const blockquote = document.querySelector('blockquote');
 const figcaption = document.querySelector('figcaption');
-const button = document.querySelector('button');
+const button = document.querySelector('.button');
+const weather = document.querySelector('.weather');
 const weatherInfo = document.querySelector('.weather__info');
 const weatherIcon = document.querySelector('.weather__icon');
 const weatherTemperature = document.querySelector('.weather__temperature');
 const weatherDescription = document.querySelector('.weather__description');
+const weatherAirHumidity = document.querySelector('.weather__air-humidity');
+const weatherWindSpeed = document.querySelector('.weather__wind-speed');
 const selectCity = document.querySelector('.weather__select-city');
 const loader = `<div class="loader"></div>`;
 
@@ -126,11 +130,20 @@ async function getQuote() {
             blockquote.textContent = body.quoteText;
             figcaption.textContent = body.quoteAuthor;
             button.innerHTML = buttonInnerElement;
+            quote.classList.add('opacity');
         })
+        .then(quote.classList.remove('opacity'))
 };
 
 async function getWeather() {
     document.querySelector('.result').innerHTML = loader;
+    weatherInfo.textContent = '';
+    weatherIcon.classList = '';
+    weatherDescription.textContent = '';
+    weatherTemperature.textContent = '';
+    weatherAirHumidity.textContent = '';
+    weatherWindSpeed.textContent = '';
+
     let cityName = (!selectCity.textContent) ? localStorage.getItem('city') : selectCity.textContent;
     await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&lang=en&appid=350626f97bfd83f95eee81ddd708faa6&units=imperial`)
         .then(res => {
@@ -138,30 +151,39 @@ async function getWeather() {
                 weatherInfo.textContent = 'Something went wrong!';
                 weatherIcon.classList = '';
                 weatherDescription.textContent = '';
+                weatherAirHumidity.textContent = '';
+                weatherWindSpeed.textContent = '';
                 weatherTemperature.textContent = '';
+                weatherInfo.classList.add('opacity');
                 document.querySelector('.result').innerHTML = '';
             } else {
                 weatherInfo.textContent = '';
             }
             return res.json()
         })
+        .then(weatherInfo.classList.remove('opacity'))
         .then(body => {
             weatherIcon.className = 'weather__icon owf';
             weatherIcon.classList.add(`owf-${body.weather[0].id}`);
             weatherDescription.textContent = body.weather[0].description;
+            weatherAirHumidity.textContent = `Air humidity: ${body.main.humidity}`;
+            weatherWindSpeed.textContent = `Wind speed: ${body.wind.speed}`;
             weatherTemperature.textContent = `${body.main.temp}°F`;
+            weather.classList.add('opacity');
             document.querySelector('.result').innerHTML = '';
         })
+        .then(weather.classList.remove('opacity'))
 }
 
 const setCity = (e) => {
-    if (e.type = 'keypress') {
+    if (e.type === 'keypress') {
         if (e.keyCode === 13) {
             getWeather();
             localStorage.setItem('city', e.target.textContent);
             e.target.blur();
         }
     } else {
+        getWeather();
         localStorage.setItem('city', e.target.textContent);
     }
 }

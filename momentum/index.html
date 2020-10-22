@@ -11,36 +11,52 @@
 
 <body>
 
-    <div class="wrapper">
-        <section class="weather">
-            <div class="weather__info"></div>
-            <div class="result"></div>
-            <i class="weather__icon owf"></i>
-            <div class="weather__temperature"></div>
-            <div class="weather__description"></div>
-            <div class="weather__select-city" contenteditable="true"></div>
-        </section>
 
-        <section class="time__container">
+    <section class="weather">
+        <div class="wrapper">
+            <div class="weather__container">
+                <div class="weather__info"></div>
+                <div class="result"></div>
+                <i class="weather__icon owf"></i>
+                <div class="weather__temperature"></div>
+                <div class="weather__air-humidity"></div>
+                <div class="weather__wind-speed"></div>
+                <div class="weather__description"></div>
+                <div class="weather__select-city" contenteditable="true"></div>
+            </div>
+            <div class="background">
+                <button class="background-button">dsf</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="time__container">
+        <div class="wrapper">
             <h1 class="time"></h1>
             <h2 class="day"></h2>
             <p class="wish">
-                <span class="day-times">Good Morning, </span>
-                <span class="name" contenteditable="true">Evgeniy</span>
+                <span class="day-times"></span>
+                <span class="name" contenteditable="true"></span>
             </p>
 
             <p class="focus">What's your main focus for today?</p>
-            <p class="focus__task" contenteditable="true">Make this app</p>
+            <p class="focus__task" contenteditable="true"></p>
+        </div>
+    </section>
+
+    <section class="quote__section">
+        <div class="wrapper">
             <figure class="quote">
                 <blockquote class="blockquote"></blockquote>
                 <figcaption class="figcaption"></figcaption>
             </figure>
             <div class="quote__container">
                 <div class="result"></div>
-                <button></button>
+                <button class="button"></button>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+
 
     <script src="./script.js"></script>
 
