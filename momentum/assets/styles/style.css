@@ -56,8 +56,9 @@ body {
 }
 
 .weather__select-city {
-    outline: none;
-    cursor: pointer;
+    max-width: 20.5rem;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .time__container .wrapper,
@@ -74,8 +75,18 @@ body {
 }
 
 .wish {
+    display: flex;
+    align-items: center;
     font-size: 4rem;
     margin: 2.5rem 0;
+}
+
+.name {
+    min-width: 7rem;
+    max-width: 36rem;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 0.3rem;
 }
 
 .focus {
@@ -86,11 +97,18 @@ body {
     font-family: 'SF-Light';
     font-size: 2rem;
     margin-top: 1.5rem;
+    width: 40rem;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .quote {
     max-width: 70rem;
-    font-size: 1.9rem;
+    font-size: 1.8rem;
+}
+
+.quote__section .wrapper {
+    padding: 0 3rem;
 }
 
 .quote__container {
@@ -128,6 +146,7 @@ body {
 
 button:hover {
     background: #ccc;
+    transform: scale(1.2);
 }
 
 .background-button {

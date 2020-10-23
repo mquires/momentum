@@ -140,20 +140,24 @@ const changeDayTimes = () => {
 const setName = (e) => {
     if (e.type === 'keypress') {
         if (e.keyCode == 13) {
+            if (e.target.textContent == '') {
+                e.target.textContent = localStorage.getItem('name');
+            }
             localStorage.setItem('name', e.target.textContent);
             e.target.blur();
-        } else {
-            localStorage.getItem('name');
         }
     } else {
+        if (e.target.textContent == '') {
+            e.target.textContent = localStorage.getItem('name');
+        }
         localStorage.setItem('name', e.target.textContent);
     }
-}
-
+};
 
 const getName = () => {
     if (localStorage.getItem('name') === null) {
         name.textContent = '[Write your name]';
+        localStorage.setItem('name', name.textContent);
     } else {
         name.textContent = localStorage.getItem('name');
     }
@@ -162,17 +166,24 @@ const getName = () => {
 const setFocus = (e) => {
     if (e.type === 'keypress') {
         if (e.keyCode == 13) {
+            if (e.target.textContent == '') {
+                e.target.textContent = localStorage.getItem('focus');
+            }
             localStorage.setItem('focus', e.target.textContent);
             e.target.blur();
         }
     } else {
+        if (e.target.textContent == '') {
+            e.target.textContent = localStorage.getItem('focus');
+        }
         localStorage.setItem('focus', e.target.textContent);
     }
-}
+};
 
 const getFocus = () => {
     if (localStorage.getItem('focus') === null) {
         focusTask.textContent = '[Write your focus for today]';
+        localStorage.setItem('focus', focusTask.textContent);
     } else {
         focusTask.textContent = localStorage.getItem('focus');
     }
@@ -181,11 +192,11 @@ const getFocus = () => {
 async function getQuote() {
     let buttonInnerElement = `<div class="quote__button"></div>`;
     button.innerHTML = loader;
-    await fetch('https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en')
+    await fetch('https://api.quotable.io/random')
         .then(res => res.json())
         .then(body => {
-            blockquote.textContent = body.quoteText;
-            figcaption.textContent = body.quoteAuthor;
+            blockquote.textContent = body.content;
+            figcaption.textContent = body.author;
             button.innerHTML = buttonInnerElement;
             quote.classList.add('opacity');
         })
@@ -213,6 +224,7 @@ async function getWeather() {
                 weatherTemperature.textContent = '';
                 weatherInfo.classList.add('opacity');
                 document.querySelector('.result').innerHTML = '';
+                localStorage.clear('city');
             } else {
                 weatherInfo.textContent = '';
             }
@@ -235,11 +247,17 @@ async function getWeather() {
 const setCity = (e) => {
     if (e.type === 'keypress') {
         if (e.keyCode === 13) {
+            if (e.target.textContent == '') {
+                e.target.textContent = localStorage.getItem('city');
+            }
             getWeather();
             localStorage.setItem('city', e.target.textContent);
             e.target.blur();
         }
     } else {
+        if (e.target.textContent == '') {
+            e.target.textContent = localStorage.getItem('city');
+        }
         getWeather();
         localStorage.setItem('city', e.target.textContent);
     }
@@ -248,6 +266,7 @@ const setCity = (e) => {
 const getCity = () => {
     if (localStorage.getItem('city') === null) {
         selectCity.textContent = '[Write your city]';
+        localStorage.setItem('city', selectCity.textContent);
         weatherInfo.textContent = '';
     } else {
         selectCity.textContent = localStorage.getItem('city');
@@ -255,10 +274,19 @@ const getCity = () => {
     }
 };
 
+name.addEventListener('focus', () => {
+    name.textContent = '';
+});
 name.addEventListener('keypress', setName);
 name.addEventListener('blur', setName);
+focusTask.addEventListener('focus', () => {
+    focusTask.textContent = '';
+});
 focusTask.addEventListener('keypress', setFocus);
 focusTask.addEventListener('blur', setFocus);
+selectCity.addEventListener('focus', () => {
+    selectCity.textContent = '';
+});
 selectCity.addEventListener('keypress', setCity);
 selectCity.addEventListener('blur', setCity);
 document.addEventListener('DOMContentLoaded', getQuote());
