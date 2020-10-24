@@ -22,28 +22,36 @@ const morning = [
     './assets/images/background/morning/1.jpg',
     './assets/images/background/morning/2.jpg',
     './assets/images/background/morning/3.jpg',
-    './assets/images/background/morning/4.jpg'
+    './assets/images/background/morning/4.jpg',
+    './assets/images/background/morning/5.jpg',
+    './assets/images/background/morning/6.jpg'
 ];
 
 const afternoon = [
     './assets/images/background/afternoon/1.jpg',
     './assets/images/background/afternoon/2.jpg',
     './assets/images/background/afternoon/3.jpg',
-    './assets/images/background/afternoon/4.jpg'
+    './assets/images/background/afternoon/4.jpg',
+    './assets/images/background/afternoon/5.jpg',
+    './assets/images/background/afternoon/6.jpg'
 ];
 
 const evening = [
     './assets/images/background/evening/1.jpg',
     './assets/images/background/evening/2.jpg',
     './assets/images/background/evening/3.jpg',
-    './assets/images/background/evening/4.jpg'
+    './assets/images/background/evening/4.jpg',
+    './assets/images/background/evening/5.jpg',
+    './assets/images/background/evening/6.jpg'
 ];
 
 const night = [
     './assets/images/background/night/1.jpg',
     './assets/images/background/night/2.jpg',
     './assets/images/background/night/3.jpg',
-    './assets/images/background/night/4.jpg'
+    './assets/images/background/night/4.jpg',
+    './assets/images/background/night/5.jpg',
+    './assets/images/background/night/6.jpg'
 ];
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -205,7 +213,6 @@ async function getQuote() {
 
 async function getWeather() {
     document.querySelector('.result').innerHTML = loader;
-    weatherInfo.textContent = '';
     weatherIcon.classList = '';
     weatherDescription.textContent = '';
     weatherTemperature.textContent = '';
@@ -224,7 +231,6 @@ async function getWeather() {
                 weatherTemperature.textContent = '';
                 weatherInfo.classList.add('opacity');
                 document.querySelector('.result').innerHTML = '';
-                localStorage.clear('city');
             } else {
                 weatherInfo.textContent = '';
             }
